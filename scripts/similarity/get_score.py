@@ -2,18 +2,19 @@ import json
 import logging
 import os
 from typing import List
-
+import textdistance as td
 import yaml
 from qdrant_client import QdrantClient
 
-from scripts.utils.logger import init_logging_config
+''''from scripts import utils
+from utils.logger import init_logging_config
 
 init_logging_config(basic_log_level=logging.INFO)
 # Get the logger
 logger = logging.getLogger(__name__)
 
 # Set the logging level
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.INFO)'''
 
 
 def find_path(folder_name):
@@ -45,6 +46,7 @@ def find_path(folder_name):
 
 
 cwd = find_path("Resume-Matcher")
+print(cwd)
 READ_RESUME_FROM = os.path.join(cwd, "Data", "Processed", "Resumes")
 READ_JOB_DESCRIPTION_FROM = os.path.join(cwd, "Data", "Processed", "JobDescription")
 config_path = os.path.join(cwd, "scripts", "similarity")
@@ -70,13 +72,13 @@ def read_config(filepath):
             config = yaml.safe_load(f)
         return config
     except FileNotFoundError as e:
-        logger.error(f"Configuration file {filepath} not found: {e}")
+        print(f"Configuration file {filepath} not found: {e}")
     except yaml.YAMLError as e:
-        logger.error(
+        print(
             f"Error parsing YAML in configuration file {filepath}: {e}", exc_info=True
         )
     except Exception as e:
-        logger.error(f"Error reading configuration file {filepath}: {e}")
+        print(f"Error reading configuration file {filepath}: {e}")
     return None
 
 
@@ -99,61 +101,48 @@ def read_doc(path):
         try:
             data = json.load(f)
         except Exception as e:
-            logger.error(f"Error reading JSON file: {e}")
+            print(f"Error reading JSON file: {e}")
             data = {}
     return data
 
 
-def get_score(resume_string, job_description_string):
-    """
-    The function `get_score` uses QdrantClient to calculate the similarity score between a resume and a
-    job description.
-
-    Args:
-      resume_string: The `resume_string` parameter is a string containing the text of a resume. It
-    represents the content of a resume that you want to compare with a job description.
-      job_description_string: The `get_score` function you provided seems to be using a QdrantClient to
-    calculate the similarity score between a resume and a job description. The function takes in two
-    parameters: `resume_string` and `job_description_string`, where `resume_string` is the text content
-    of the resume and
-
-    Returns:
-      The function `get_score` returns the search result obtained by querying a QdrantClient with the
-    job description string against the resume string provided.
-    """
-    logger.info("Started getting similarity score")
-
-    documents: List[str] = [resume_string]
-    client = QdrantClient(":memory:")
-    client.set_model("BAAI/bge-base-en")
-
-    client.add(
-        collection_name="demo_collection",
-        documents=documents,
-    )
-
-    search_result = client.query(
-        collection_name="demo_collection", query_text=job_description_string
-    )
-    logger.info("Finished getting similarity score")
-    return search_result
+def match(resume, job_des):
+    j = td.jaccard.similarity(resume, job_des)
+    s = td.sorensen_dice.similarity(resume, job_des)
+    c = td.cosine.similarity(resume, job_des)
+    o = td.overlap.normalized_similarity(resume, job_des)
+    total = (j + s + c + o) / 4
+    # total = (s+o)/2
+    return total * 100
+    
+    
 
 
 if __name__ == "__main__":
     # To give your custom resume use this code
     resume_dict = read_config(
         READ_RESUME_FROM
-        + "/Resume-alfred_pennyworth_pm.pdf83632b66-5cce-4322-a3c6-895ff7e3dd96.json"
+        + "/Resume-barry_allen_fe.pdf0df1b6e3-5ce2-488d-808a-d542670f076e.json"
     )
     job_dict = read_config(
         READ_JOB_DESCRIPTION_FROM
-        + "/JobDescription-job_desc_product_manager.pdf6763dc68-12ff-4b32-b652-ccee195de071.json"
+        + "/JobDescription-mle_jd_uber.pdf8cb9a0fa-83aa-4956-bf3e-13b218b5dbec.json"
     )
-    resume_keywords = resume_dict["extracted_keywords"]
-    job_description_keywords = job_dict["extracted_keywords"]
+    resume_keywords, r_entities, r_experience = resume_dict["extracted_keywords"],resume_dict["entities"],resume_dict["experience"]
+    job_description_keywords,j_entities,j_experience = job_dict["extracted_keywords"],job_dict["entities"],job_dict["experience"]
 
-    resume_string = " ".join(resume_keywords)
-    jd_string = " ".join(job_description_keywords)
-    final_result = get_score(resume_string, jd_string)
-    for r in final_result:
+    resume_k_string = " ".join(resume_keywords)
+    print(resume_k_string)
+    jd_k_string = " ".join(job_description_keywords)
+    final_result1 = match(resume_k_string, jd_k_string)
+    resume_e_string = " ".join(r_entities)
+    jd_e_string = " ".join(j_entities)
+    final_result2 = match(resume_e_string, jd_e_string)
+    '''resume_exp = " ".join(r_experience)
+    jd_exp = " ".join(j_experience)'''
+    final_result3 = match(r_experience, j_experience)
+    '''for r in final_result:
         print(r.score)
+    print((final_result1+final_result2+final_result3)/3)'''
+    print(final_result1,final_result2,final_result3)
+

@@ -23,7 +23,7 @@ class ParseResume:
         self.years = DataExtractor(self.clean_data).extract_position_year()
         self.key_words = DataExtractor(self.clean_data).extract_particular_words()
         self.pos_frequencies = CountFrequency(self.clean_data).count_frequency()
-        self.keyterms = KeytermExtractor(self.clean_data).get_keyterms_based_on_sgrank()
+        self.keyterms = KeytermExtractor(self.clean_data).get_keyterms_based_on_yake()
         self.bi_grams = KeytermExtractor(self.clean_data).bi_gramchunker()
         self.tri_grams = KeytermExtractor(self.clean_data).tri_gramchunker()
 

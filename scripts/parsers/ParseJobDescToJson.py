@@ -15,9 +15,10 @@ class ParseJobDesc:
         self.job_desc_data = job_desc
         self.clean_data = TextCleaner.clean_text(self.job_desc_data)
         self.entities = DataExtractor(self.clean_data).extract_entities()
+        self.experience = DataExtractor(self.clean_data).extract_experience()
         self.key_words = DataExtractor(self.clean_data).extract_particular_words()
         self.pos_frequencies = CountFrequency(self.clean_data).count_frequency()
-        self.keyterms = KeytermExtractor(self.clean_data).get_keyterms_based_on_sgrank()
+        self.keyterms = KeytermExtractor(self.clean_data).get_keyterms_based_on_yake()
         self.bi_grams = KeytermExtractor(self.clean_data).bi_gramchunker()
         self.tri_grams = KeytermExtractor(self.clean_data).tri_gramchunker()
 
@@ -30,6 +31,7 @@ class ParseJobDesc:
             "job_desc_data": self.job_desc_data,
             "clean_data": self.clean_data,
             "entities": self.entities,
+            "experience": self.experience,
             "extracted_keywords": self.key_words,
             "keyterms": self.keyterms,
             "bi_grams": str(self.bi_grams),

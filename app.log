@@ -1,0 +1,30 @@
+2024-04-25 12:02:36,010 (_internal.py:224) - WARNING:  * Debugger is active!
+2024-04-25 12:02:36,026 (_internal.py:224) - INFO:  * Debugger PIN: 658-487-180
+2024-04-25 12:02:36,097 (app.py:84) - INFO: Started to read from Data/JobDescription
+2024-04-25 12:02:36,097 (app.py:86) - INFO: Started parsing the Job Descriptions.
+2024-04-25 12:02:36,098 (app.py:34) - INFO: Loading /Users/bhoomikaraval/Resume_screener/Resume-JD-App/Data/JobDescription/computer_vision_jd.pdf
+2024-04-25 12:02:36,099 (app.py:84) - INFO: Started to read from Data/JobDescription
+2024-04-25 12:02:36,099 (app.py:86) - INFO: Started parsing the Job Descriptions.
+2024-04-25 12:02:36,100 (app.py:34) - INFO: Loading /Users/bhoomikaraval/Resume_screener/Resume-JD-App/Data/JobDescription/computer_vision_jd.pdf
+2024-04-25 12:02:36,299 (app.py:90) - INFO: Parsing of the Job Descriptions is now complete.
+2024-04-25 12:02:36,299 (app.py:91) - INFO: Started to read from Data/Resumes
+2024-04-25 12:02:36,300 (app.py:96) - INFO: Reading from Data/Resumes is now complete.
+2024-04-25 12:02:36,300 (app.py:105) - INFO: Started parsing the resumes.
+2024-04-25 12:02:36,300 (app.py:34) - INFO: Loading /Users/bhoomikaraval/Resume_screener/Resume-JD-App/Data/Resumes1/bhoomika_resume_screenshot.pdf
+2024-04-25 12:02:36,302 (app.py:90) - INFO: Parsing of the Job Descriptions is now complete.
+2024-04-25 12:02:36,302 (app.py:91) - INFO: Started to read from Data/Resumes
+2024-04-25 12:02:36,302 (app.py:96) - INFO: Reading from Data/Resumes is now complete.
+2024-04-25 12:02:36,302 (app.py:105) - INFO: Started parsing the resumes.
+2024-04-25 12:02:36,302 (app.py:34) - INFO: Loading /Users/bhoomikaraval/Resume_screener/Resume-JD-App/Data/Resumes1/bhoomika_resume_screenshot.pdf
+2024-04-25 12:03:34,008 (_client.py:1026) - INFO: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2024-04-25 12:03:34,009 (_client.py:1026) - INFO: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2024-04-25 12:03:34,013 (_base_client.py:1039) - INFO: Retrying request to /chat/completions in 0.904935 seconds
+2024-04-25 12:03:34,014 (_base_client.py:1039) - INFO: Retrying request to /chat/completions in 0.863768 seconds
+2024-04-25 12:03:35,244 (_client.py:1026) - INFO: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2024-04-25 12:03:35,245 (_client.py:1026) - INFO: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2024-04-25 12:03:35,246 (_base_client.py:1039) - INFO: Retrying request to /chat/completions in 1.514677 seconds
+2024-04-25 12:03:35,246 (_base_client.py:1039) - INFO: Retrying request to /chat/completions in 1.802126 seconds
+2024-04-25 12:03:37,085 (_client.py:1026) - INFO: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2024-04-25 12:03:37,124 (_internal.py:224) - INFO: 127.0.0.1 - - [25/Apr/2024 12:03:37] "[35m[1mPOST /match-resume HTTP/1.1[0m" 500 -
+2024-04-25 12:03:37,371 (_client.py:1026) - INFO: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2024-04-25 12:03:37,388 (_internal.py:224) - INFO: 127.0.0.1 - - [25/Apr/2024 12:03:37] "[35m[1mPOST /match-resume HTTP/1.1[0m" 500 -
